@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "env": {
+    "VITE_API_BASE_URL": {
+      "description": "Backend API URL",
+      "default": "https://void-server.railway.app"
+    }
+  }
+}

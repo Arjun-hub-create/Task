@@ -1,7 +1,16 @@
 import axios from 'axios';
 
+// Support both dev and production environments
+const getBaseURL = () => {
+  if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+    return 'http://localhost:5000/api/v1';
+  }
+  // Production: Use environment variable or infer from current domain
+  return import.meta.env.VITE_API_URL || '/api/v1';
+};
+
 const api = axios.create({
-  baseURL: '/api/v1',
+  baseURL: getBaseURL(),
   timeout: 10000,
   withCredentials: true,
 });
