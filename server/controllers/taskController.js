@@ -24,7 +24,7 @@ const getTasks = async (req, res, next) => {
 
     const filter = {};
 
-    // Users can only see tasks assigned to them
+    // Users can only see tasks assigned to them; managers may see all tasks.
     if (req.user.role === 'user') {
       filter.assignedTo = req.user._id;
     }
@@ -76,7 +76,7 @@ const getTaskById = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'Task not found.' });
     }
 
-    // Users can only see their assigned tasks
+    // Users can only see their assigned tasks; managers may view any task.
     if (req.user.role === 'user' && task.assignedTo._id.toString() !== req.user._id.toString()) {
       return res.status(403).json({ success: false, message: 'Access denied.' });
     }

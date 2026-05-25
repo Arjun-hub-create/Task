@@ -13,6 +13,8 @@ const getMongoOptions = () => ({
 const getConnectionUris = () => {
   const uris = [];
   if (process.env.MONGODB_URI) uris.push(process.env.MONGODB_URI);
+
+  // In development, try a local MongoDB URI if no production URI is available.
   if (process.env.NODE_ENV !== 'production') {
     const local =
       process.env.MONGODB_URI_LOCAL || 'mongodb://127.0.0.1:27017/void_taskmanager';
