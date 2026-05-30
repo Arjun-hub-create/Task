@@ -79,17 +79,19 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-httpServer.listen(PORT, () => {
-  console.log(`
-  ██╗   ██╗ ██████╗ ██╗██████╗ 
-  ██║   ██║██╔═══██╗██║██╔══██╗
-  ██║   ██║██║   ██║██║██║  ██║
-  ╚██╗ ██╔╝██║   ██║██║██║  ██║
-   ╚████╔╝ ╚██████╔╝██║██████╔╝
-    ╚═══╝   ╚═════╝ ╚═╝╚═════╝ 
-  🚀 VOID Server running on port ${PORT}
-  🌍 Environment: ${process.env.NODE_ENV}
-  `);
-});
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  httpServer.listen(PORT, () => {
+    console.log(`
+    ██╗   ██╗ ██████╗ ██╗██████╗ 
+    ██║   ██║██╔═══██╗██║██╔══██╗
+    ██║   ██║██║   ██║██║██║  ██║
+    ╚██╗ ██╔╝██║   ██║██║██║  ██║
+     ╚████╔╝ ╚██████╔╝██║██████╔╝
+      ╚═══╝   ╚═════╝ ╚═╝╚═════╝ 
+    🚀 VOID Server running on port ${PORT}
+    🌍 Environment: ${process.env.NODE_ENV}
+    `);
+  });
+}
 
-module.exports = { app, httpServer };
+module.exports = app;

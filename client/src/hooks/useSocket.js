@@ -13,7 +13,11 @@ const useSocket = () => {
   useEffect(() => {
     if (!isAuthenticated || !user || initialized.current) return;
 
-    socketInstance = io(window.location.origin, {
+    const socketUrl = import.meta.env.VITE_API_URL
+      ? import.meta.env.VITE_API_URL.replace('/api/v1', '')
+      : window.location.origin;
+
+    socketInstance = io(socketUrl, {
       withCredentials: true,
       transports: ['websocket', 'polling'],
     });
